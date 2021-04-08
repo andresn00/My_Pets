@@ -36,5 +36,17 @@ export const generateUserDocument = async (user, additionalData) => {
             console.log("Error creating user document")
         }
     }
-    //return generateUserDocument(user.uid)
+    return getUserDocument(user.uid)
 }
+const getUserDocument = async uid => {
+    if (!uid) return null;
+    try {
+      const userDocument = await firestore.collection('users').doc(uid).get();
+      return {
+        uid,
+        ...userDocument.data()
+      };
+    } catch (error) {
+      console.error("Error fetching user", error);
+    }
+  };

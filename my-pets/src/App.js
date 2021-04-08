@@ -18,7 +18,7 @@ function App() {
         <NavBar />
         <Route path='/signIn' component={SignIn} />
         <Route path='/signUp' component={SignUp} />
-        <Route path='/profilePage' component={ProfilePage} />
+        <Route path='/profile' component={ProfilePage} />
       </UserProvider>
     </Router>
   );

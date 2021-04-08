@@ -5,18 +5,20 @@ export const UserContext = createContext({ user: null });
 
 class UserProvider extends Component {
   state = {
-    user: null
+    user: null,
+    userLoaded: false
   };
 
   componentDidMount = async () => {
     auth.onAuthStateChanged(async userAuth => {
       const user = await generateUserDocument(userAuth);
-      this.setState({ user });
+      this.setState({ user, userLoaded: true });
+      console.log('onAuthStateChanged', user)
     });
   };
   render() {
     return (
-      <UserContext.Provider value={this.state.user}>
+      <UserContext.Provider value={this.state}>
         {this.props.children}
       </UserContext.Provider>
     );

@@ -3,7 +3,7 @@ import { UserContext } from '../Providers/UserProvider'
 import { auth } from '../firebase'
 
 const ProfilePage = () => {
-    const user = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const { photoURL, displayName, email } = user || {}
     return (
         <div className='mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8'>
@@ -20,7 +20,9 @@ const ProfilePage = () => {
                     <h3 className='italic'>{email}</h3>
                 </div>
             </div>
-            <button onClick={() => { auth.signOut() }}
+            <button onClick={() => {
+                auth.signOut()
+            console.log('cerro sesion')}}
                 className='w-full py-3 bg-red-600 mt-4 text-white'>
                 Sign out
             </button>
