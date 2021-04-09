@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { Form, Button } from 'react-bootstrap'
+
 import { auth } from '../firebase'
 import { signInWithGoogle } from '../firebase'
 import { generateUserDocument } from '../firebase'
@@ -28,56 +30,44 @@ const SignUp = () => {
     }
 
     return (
-        <div className='mt-8'>
-            <h1 className='text-3xl mb-2 text-center font-bold'>Sign Up</h1>
-            <div className='border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8'>
-                {error !== null && (
-                    <div className='py-4 bg-red-600 w-full text-white text-center mb-3'>
-                        {error}
-                    </div>
-                )}
-                <form className=''>
-                    <label htmlFor='displayName' className='block'>
-                        Display Name:
-                    </label>
-                    <input type='text' className='my-1 p-1 w-full'
-                        name='displayName' value={displayName}
-                        placeholder='E.g. Faruq' id='displayName'
-                        onChange={(e => setDisplayName(e.target.value))}
-                    />
-
-                    <label htmlFor='userEmail' className='block'>
-                        Email:
-                    </label>
-                    <input type='email' className='my-1 p-1 w-full'
-                        name='userEmail' value={email}
-                        placeholder='E.g. example@gmail.com' id='userEmail'
-                        onChange={(e => setEmail(e.target.value))}
-                    />
-                    <label htmlFor='userEmail' className='block'>
-                        Password:
-                    </label>
-
-                    <input type='password' className='my-1 p-1 w-full'
-                        name='userPassword' value={password}
-                        placeholder='Password' id='userPassword'
-                        onChange={(e => setPassword(e.target.value))}
-                    />
-                    <button className='bg-green-400 hover:bg-green-500 w-full py-2 text-white'
+        <div className='Sign-form'>
+            <h1 className="text-center">Sign Up</h1>
+            <div className="border px-3 mx-3 Sign-form-box">
+                {error !== null && <div className="py-4 w-full text-center mb-3">
+                    {error}
+                </div>
+                }
+                <Form className='m-3'>
+                    <Form.Group controlId='displayName'>
+                        <Form.Label>Display Name:</Form.Label>
+                        <Form.Control type='text' placeholder='Display Name'
+                            onChange={(e => setDisplayName(e.target.value))} />
+                    </Form.Group>
+                    <Form.Group controlId='userEmail'>
+                        <Form.Label>Email:</Form.Label>
+                        <Form.Control type='email' placeholder='Enter email'
+                            onChange={(e => setEmail(e.target.value))} />
+                    </Form.Group>
+                    <Form.Group controlId='userPassword'>
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control type='password' placeholder='Password'
+                            onChange={(e => setPassword(e.target.value))} />
+                    </Form.Group>
+                    <Button block
                         onClick={(e) => {
                             createUserWithEmailAndPasswordHandler(e, email, password)
                         }}>
-                        Sign up
-                    </button>
-                </form>
-                <p className='text-center my-3'>or</p>
-                <button onClick={signInWithGoogle}
-                    className='bg-red-500 hover:bg-red-600 w-full py-2 text-white'>
-                    Sign in with Google
-                </button>
+                        Sign Up
+                    </Button>
+                    <p className="text-center my-3">or</p>
+                    <Button block variant='outline-secondary'
+                        onClick={signInWithGoogle}>
+                        Sign in with Google
+                    </Button>
+                </Form>
                 <p className='text-center my-3'>
                     Already have an account?{' '}
-                    <Link to='/+signIn' className='text-blue-500 hover:text-blue-600'>
+                    <Link to='/signIn' className='text-blue-500 hover:text-blue-600'>
                         Sign in here
                     </Link>
                 </p>
