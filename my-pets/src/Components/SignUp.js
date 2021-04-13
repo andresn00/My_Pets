@@ -10,15 +10,15 @@ import { generateUserDocument } from '../firebase'
 const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [displayName, setDisplayName] = useState('')
+    const [name, setName] = useState('')
     const [error, setError] = useState(null)
 
-    const createUserWithEmailAndPasswordHandler = async (e, email, password) => {
+    const createUserWithEmailAndPasswordHandler = async (e, email, password, isVet) => {
         e.preventDefault()
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             console.log(user);
-            await generateUserDocument(user, { displayName });
+            await generateUserDocument(user, name, isVet);
         }
         catch (error) {
             setError('Error Signin up with email and password')
@@ -26,22 +26,22 @@ const SignUp = () => {
 
         setEmail('')
         setPassword('')
-        setDisplayName('')
+        setName('')
     }
 
     return (
         <div className='Sign-form'>
-            <h1 className="text-center">Sign Up</h1>
+            <h1 className="text-center">Registrarse</h1>
             <div className="border px-3 mx-3 Sign-form-box">
                 {error !== null && <div className="py-4 w-full text-center mb-3">
                     {error}
                 </div>
                 }
                 <Form className='m-3'>
-                    <Form.Group controlId='displayName'>
-                        <Form.Label>Display Name:</Form.Label>
-                        <Form.Control type='text' placeholder='Display Name'
-                            onChange={(e => setDisplayName(e.target.value))} />
+                    <Form.Group controlId='name'>
+                        <Form.Label>Nombre:</Form.Label>
+                        <Form.Control type='text' placeholder='Nombre'
+                            onChange={(e => setName(e.target.value))} />
                     </Form.Group>
                     <Form.Group controlId='userEmail'>
                         <Form.Label>Email:</Form.Label>
@@ -49,26 +49,34 @@ const SignUp = () => {
                             onChange={(e => setEmail(e.target.value))} />
                     </Form.Group>
                     <Form.Group controlId='userPassword'>
-                        <Form.Label>Password:</Form.Label>
-                        <Form.Control type='password' placeholder='Password'
+                        <Form.Label>Contraseña:</Form.Label>
+                        <Form.Control type='password' placeholder='Contraseña'
                             onChange={(e => setPassword(e.target.value))} />
                     </Form.Group>
-                    <Button block
-                        onClick={(e) => {
-                            createUserWithEmailAndPasswordHandler(e, email, password)
-                        }}>
-                        Sign Up
-                    </Button>
-                    <p className="text-center my-3">or</p>
-                    <Button block variant='outline-secondary'
-                        onClick={signInWithGoogle}>
-                        Sign in with Google
-                    </Button>
+                    <div className='text-center' >
+                        <Button className='mr-2'
+                            onClick={(e) => {
+                                createUserWithEmailAndPasswordHandler(e, email, password, false)
+                            }}>
+                            Registrarse como Usuario
+                        </Button>
+                        <Button variant='success'
+                            onClick={(e) => {
+                                createUserWithEmailAndPasswordHandler(e, email, password, true)
+                            }}>
+                            Registrarse como Veterinaria
+                        </Button>
+                        <p className="text-center my-3">o</p>
+                        <Button block variant='outline-secondary'
+                            onClick={signInWithGoogle}>
+                            Inicia Sesión con Google
+                        </Button>
+                    </div>
                 </Form>
                 <p className='text-center my-3'>
-                    Already have an account?{' '}
+                    Ya tienes una cuenta?{' '}
                     <Link to='/signIn' className='text-blue-500 hover:text-blue-600'>
-                        Sign in here
+                        Inicia sesión aquí
                     </Link>
                 </p>
             </div>

@@ -10,7 +10,7 @@ const NavBar = () => {
 
     const { user, userLoaded } = useContext(UserContext)
     console.log('navbar user', user)
-    const { photoURL, displayName, email } = user || {}
+    // const { isVet, name, email } = user || {}
 
     return (
         <Navbar expanded={expanded} onToggle={() => setExpanded(!expanded)} expand="lg" bg="dark" variant="dark">
@@ -20,15 +20,15 @@ const NavBar = () => {
                 <Nav className="mr-auto" onClick={() => {
                     setExpanded(false)
                 }}>
-                    <Nav.Link as={Link} to="/" >Home</Nav.Link>
-                    <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                    <Nav.Link as={Link} to="/" >Inicio</Nav.Link>
+                    <Nav.Link as={Link} to="/carnets">Carnets</Nav.Link>
                 </Nav>
                 <Nav onClick={() => { setExpanded(false) }}>
                     {!user && userLoaded ? <>
-                    <Nav.Link as={Link} to="/signIn">Sign in</Nav.Link>
-                    <Nav.Link as={Link} to="/signUp">Sign up</Nav.Link>
+                    <Nav.Link as={Link} to="/signIn">Iniciar Sesión</Nav.Link>
+                    <Nav.Link as={Link} to="/signUp">Registrarse</Nav.Link>
                     </> : <>
-                        <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                        <Nav.Link as={Link} to="/profile">Perfil</Nav.Link>
                         <Nav.Link onClick={() => auth.signOut()}>Sign out</Nav.Link>    
                     </>
                     }

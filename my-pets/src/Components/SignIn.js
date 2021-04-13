@@ -22,7 +22,7 @@ const SignIn = () => {
 
   return (
     <div className='Sign-form'>
-      <h1 className="text-center">Sign In</h1>
+      <h1 className="text-center">Iniciar Sesión</h1>
       <div className="border px-3 mx-3 Sign-form-box">
         {error !== null && <div className="py-4 w-full text-center mb-3">
           {error}
@@ -35,24 +35,24 @@ const SignIn = () => {
               onChange={(e => setEmail(e.target.value))} />
           </Form.Group>
           <Form.Group controlId='userPassword'>
-            <Form.Label>Password:</Form.Label>
-            <Form.Control type='password' placeholder='Password'
+            <Form.Label>Contraseña:</Form.Label>
+            <Form.Control type='password' placeholder='Contraseña'
               onChange={(e => setPassword(e.target.value))} />
           </Form.Group>
           <Button block
             onClick={e => signInWithEmailAndPasswordHandler(e, email, password)}>
-            Sign In
+            Iniciar Sesión
             </Button>
           <p className="text-center my-3">or</p>
           <Button block variant='outline-secondary'
             onClick={signInWithGoogle}>
-            Sign in with Google
+            Inicia Sesión con Google
         </Button>
         </Form>
         <p className='text-center' style={{fontSize:15}}>
-          Don't have an account?{" "}
+          No tienes cuenta?{" "}
           <Link to="signUp" className="text-blue-500 hover:text-blue-600">
-            Sign up here
+            Regístrate aquí
           </Link>{" "}
           <br />{" "}
           {/* <Link to='passwordReset' className='text-blue-500 hover:text-blue-600'>

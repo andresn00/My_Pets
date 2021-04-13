@@ -13,9 +13,7 @@ class UserProvider extends Component {
     auth.onAuthStateChanged(async userAuth => {
       console.log('userLoaded Provider', userAuth)
       const user = await generateUserDocument(userAuth);
-      console.log('user', user)
       this.setState({ user, userLoaded: true });
-     console.log("termina")
     });
   };
   render() {
