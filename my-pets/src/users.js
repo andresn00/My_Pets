@@ -5,8 +5,8 @@ export const getUsers = async () => {
     return await getAllDocs("users")
 }
 
-export const getUsersByType = async isVet => {
-    return await getAllDocsWhere("users", "isVet", "==", isVet)
+export const getUsersWhereVet = async vet => {
+    return await getAllDocsWhere("users", "vet", "==", vet)
 }
 
 export const getUserById = async id => {

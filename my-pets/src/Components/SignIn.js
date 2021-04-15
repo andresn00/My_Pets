@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Form, Button } from 'react-bootstrap'
 
@@ -9,13 +9,18 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const history = useHistory()
+
   const signInWithEmailAndPasswordHandler = (event, email, password) => {
     event.preventDefault();
-    console.log('sign in')
     auth.signInWithEmailAndPassword(email, password).catch(error => {
       setError("Error signing in with password and email")
       console.error("Error signing in with password and email")
     })
+    if (error == null) {
+      history.push('/')
+    }
     setEmail('')
     setPassword('')
   };

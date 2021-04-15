@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { Form, Button } from 'react-bootstrap'
 
 import { auth } from '../firebase'
 import { signInWithGoogle } from '../firebase'
 import { generateUserDocument } from '../firebase'
+import { addDocument, updateDocument } from '../firestore'
 
 const SignUp = () => {
     const [email, setEmail] = useState('')
@@ -13,20 +14,32 @@ const SignUp = () => {
     const [name, setName] = useState('')
     const [error, setError] = useState(null)
 
-    const createUserWithEmailAndPasswordHandler = async (e, email, password, isVet) => {
+    const history = useHistory()
+
+    const createUserWithEmailAndPasswordHandler = async (e, isVet) => {
         e.preventDefault()
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            console.log(user);
-            await generateUserDocument(user, name, isVet);
+            const userCreated = await generateUserDocument(user, name, isVet);
+            if (isVet) {
+                const vetCreated = await createVetDoc(email, name)
+                updateDocument('users', userCreated.uid, {vet: vetCreated.id})
+            }
+            history.push('/')
         }
         catch (error) {
             setError('Error Signin up with email and password')
+            console.error(error)
         }
+    }
 
-        setEmail('')
-        setPassword('')
-        setName('')
+    const createVetDoc = (email, nombre) => {
+        const res = addDocument('vets', {
+            email,
+            nombre
+        })
+        console.log(res)
+        return res
     }
 
     return (
@@ -56,13 +69,13 @@ const SignUp = () => {
                     <div className='text-center' >
                         <Button className='mr-2'
                             onClick={(e) => {
-                                createUserWithEmailAndPasswordHandler(e, email, password, false)
+                                createUserWithEmailAndPasswordHandler(e, false)
                             }}>
                             Registrarse como Usuario
                         </Button>
                         <Button variant='success'
                             onClick={(e) => {
-                                createUserWithEmailAndPasswordHandler(e, email, password, true)
+                                createUserWithEmailAndPasswordHandler(e, true)
                             }}>
                             Registrarse como Veterinaria
                         </Button>

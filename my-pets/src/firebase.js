@@ -20,19 +20,19 @@ export const signInWithGoogle = () => {
     auth.signInWithPopup(provider);
 }
 
-export const generateUserDocument = async (user, nombre, isVet) => {
+export const generateUserDocument = async (user, nombre = '', isVet = false) => {
     if (!user) return;
     const userRef = firestore.collection('users').doc(user.uid);
     const snapshot = await userRef.get();
     if (!snapshot.exists) {
         const { email } = user;
-        console.log('generateUserDocument', user, nombre, isVet)
+        const userDoc = {
+            email,
+            nombre,
+            isVet
+        }
         try {
-            await userRef.set({
-                email,
-                nombre,
-                isVet
-            });
+            await userRef.set(userDoc);
         } catch (error) {
             console.log("Error creating user document", error)
         }
@@ -50,4 +50,5 @@ const getUserDocument = async uid => {
     } catch (error) {
       console.error("Error fetching user", error);
     }
-  };
+};
+  

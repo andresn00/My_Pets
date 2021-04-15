@@ -47,3 +47,13 @@ export const addDocumentWithId = async (collectionName, doc, id) => {
     console.log("result created: ", result)
     return {...doc, id: id}
 }
+
+export const updateDocument = async (collectionName, id, doc) => {
+    const database = firebase.firestore()
+    const collectionRef = database.collection(collectionName);
+    const docRef = await collectionRef.doc(id)
+    const result = await docRef.update(doc)
+    console.log('result updated: ', result)
+    return {...doc, id: id}
+}
+
