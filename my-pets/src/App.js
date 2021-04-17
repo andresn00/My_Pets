@@ -12,6 +12,7 @@ import SignUp from './Components/SignUp';
 import ProfilePage from './Components/ProfilePage';
 import ProtectedRoute from './Components/ProtectedRoute'
 import Users from './Components/Users';
+import Carnets from './Components/Carnets';
 
 function App() {
   const { user, userLoaded } = useContext(UserContext)
@@ -35,7 +36,9 @@ function App() {
             <ProtectedRoute redirectTo='/home' path='/profile'>
               <ProfilePage />
             </ProtectedRoute>
-<Route path='/carnets' component={Users} />
+            <Route path='/usuarios' component={Users} />
+            <Route path='/carnets/:id' component={Carnets} />
+            
 
           </Switch>
         </Router>

@@ -21,7 +21,7 @@ const NavBar = () => {
                     setExpanded(false)
                 }}>
                     <Nav.Link as={Link} to="/" >Inicio</Nav.Link>
-                    <Nav.Link as={Link} to="/carnets">Carnets</Nav.Link>
+                    <Nav.Link as={Link} to="/usuarios">Usuarios</Nav.Link>
                 </Nav>
                 <Nav onClick={() => { setExpanded(false) }}>
                     {!user && userLoaded ? <>
