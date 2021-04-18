@@ -1,5 +1,5 @@
 import { auth } from './firebase'
-import { getAllDocs, getAllDocsWhere, getDocById, addDocument } from "./firestore"
+import { getAllDocs, getAllDocsWhere, getDocById, addDocument, updateDocument } from "./firestore"
 
 export const getUsers = async () => {
     return await getAllDocs("users")
@@ -23,4 +23,8 @@ export const addUser = async (cedula, direccion, telefono, ciudad, pais) => {
         isVet: false
     }
     return await addDocument("users", user)
+}
+
+export const updateUser = async (id, data) => {
+    return await updateDocument('users', id, data)
 }

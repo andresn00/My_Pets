@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { getUsersWhereVet } from '../users'
+import { getUsers, getUsersWhereVet } from '../users'
 import { UserContext } from '../Providers/UserProvider'
 
 import { Link } from 'react-router-dom'
-import { Container, Col, Row, Button, InputGroup, FormControl, Breadcrumb } from 'react-bootstrap'
+import {
+    Container, Col, Row, Button, InputGroup,
+    FormControl, Breadcrumb
+} from 'react-bootstrap'
+
+import {updateUser, getUserById} from '../users'
 
 const Users = () => {
     const { user } = useContext(UserContext)
@@ -11,8 +16,6 @@ const Users = () => {
     const [usersInVet, setUsersInVet] = useState([])
     const [usersAreVets, setUsersAreVets] = useState(false)
 
-    var usersDoctors = []
-    var usersClients = []
     useEffect(() => {
         const getUsers = async () => {
             const users = await getUsersWhereVet(user.vet)
@@ -22,16 +25,22 @@ const Users = () => {
 
     }, [])
 
-    const checkDoctors = (u) => {
-        if (u.isVet) {
-            return u
+    const addUserToVet = async () => {
+        const usr = await getUserById(idUserToAdd)
+        if (!usr) {
+            console.log('No existe el usuario')
+            return
         }
-    }
-    const checkClients = (u) => {
-        if (!u.isVet) {
-            return u
+        const userData = {
+            vet: user.vet,
+            isVet: usersAreVets
         }
+        const updatedUser = { ...usr, ...userData }
+        console.log(updatedUser)
+        setUsersInVet([...usersInVet.filter((u) => u.id !== idUserToAdd), updatedUser])
+        setIdUserToAdd('')
     }
+
     return (
         <>
             <div className='m-2 p-2'>
@@ -40,11 +49,11 @@ const Users = () => {
                     <Row>
                         <Col xs={12} md={8}>
                             <InputGroup>
-                                <FormControl
+                                <FormControl value={idUserToAdd}
                                     onChange={(e) => setIdUserToAdd(e.target.value)}
-                                    placeholder='Agregar usuario por id' />
+                                    placeholder={`Agregar ${usersAreVets ? 'doctor':'cliente'} a la veterinaria`} />
                                 <InputGroup.Append>
-                                    <Button variant='success'>
+                                    <Button variant='success' onClick={addUserToVet}>
                                         Agregar
                                     </Button>
                                 </InputGroup.Append>
