@@ -13,7 +13,7 @@ const NavBar = () => {
     // const { isVet, name, email } = user || {}
 
     return (
-        <Navbar className='fixed-top' expanded={expanded}
+        <Navbar expanded={expanded}
             onToggle={() => setExpanded(!expanded)} expand="lg"
             bg="dark" variant="dark">
             <Navbar.Brand href="/home">My Pets</Navbar.Brand>

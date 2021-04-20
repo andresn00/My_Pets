@@ -21,7 +21,7 @@
 }
 
 body {
-  /* font-family: 'Poppins', sans-serif; */
+  font-family: 'Poppins', sans-serif !important;
 }
 
 body .bg-dark {
@@ -47,4 +47,8 @@ body .bg-dark {
 
 .linkInUsersContainer :hover {
   background-color: #cccccc; /*#c2f3a3 0 #cccccc*/
+}
+
+.basicPetInfo label {
+  font-weight: bold;
 }
