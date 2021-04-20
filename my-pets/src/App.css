@@ -48,3 +48,12 @@ body .bg-dark {
 .linkInUsersContainer :hover {
   background-color: #cccccc; /*#c2f3a3 0 #cccccc*/
 }
+
+.image {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
+}
+.image img {
+  position: absolute;
+}

@@ -35,6 +35,7 @@ const Users = () => {
             vet: user.vet,
             isVet: usersAreVets
         }
+        updateUser(idUserToAdd, userData)
         const updatedUser = { ...usr, ...userData }
         console.log(updatedUser)
         setUsersInVet([...usersInVet.filter((u) => u.id !== idUserToAdd), updatedUser])

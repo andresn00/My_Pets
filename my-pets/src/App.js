@@ -11,12 +11,13 @@ import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import ProfilePage from './Components/ProfilePage';
 import ProtectedRoute from './Components/ProtectedRoute'
+import ProtectedVetRoute from './Components/ProtectedVetRoute'
 import Users from './Components/Users';
+import Pets from './Components/Pets';
 import Carnets from './Components/Carnets';
 
 function App() {
   const { user, userLoaded } = useContext(UserContext)
-  console.log('userLoaded', userLoaded)
 
   return (
     <>
@@ -36,8 +37,20 @@ function App() {
             <ProtectedRoute redirectTo='/home' path='/profile'>
               <ProfilePage />
             </ProtectedRoute>
-            <Route path='/usuarios' component={Users} />
+            <ProtectedVetRoute path='/usuarios' redirectTo='/'>
+              <Users />
+            </ProtectedVetRoute>
+            {/* <Route path='/usuarios' component={Users} /> */}
             <Route path='/carnets/:id' component={Carnets} />
+            <Route path='/pets/:id' component={Pets} />
+
+              {/* {user ?
+                <Carnets /> : <Redirect to='/home' />}
+            </Route>
+            <Route path='/pets/:id' >
+            {user ?
+                <Pets /> : <Redirect to='/home' />}
+            </Route> */}
             
 
           </Switch>

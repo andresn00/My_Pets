@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 
 import { auth, signInWithGoogle } from '../firebase'
 
@@ -19,19 +19,17 @@ const SignIn = () => {
       console.error("Error signing in with password and email")
     })
     if (error == null) {
-      history.push('/')
+      //history.push('/')
     }
-    setEmail('')
-    setPassword('')
   };
 
   return (
     <div className='Sign-form'>
       <h1 className="text-center">Iniciar Sesión</h1>
       <div className="border px-3 mx-3 Sign-form-box">
-        {error !== null && <div className="py-4 w-full text-center mb-3">
+        {error !== null && <Alert variant='danger'>
           {error}
-        </div>
+        </Alert>
         }
         <Form className='m-3'>
           <Form.Group controlId='userEmail'>

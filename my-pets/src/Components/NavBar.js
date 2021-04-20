@@ -13,7 +13,9 @@ const NavBar = () => {
     // const { isVet, name, email } = user || {}
 
     return (
-        <Navbar expanded={expanded} onToggle={() => setExpanded(!expanded)} expand="lg" bg="dark" variant="dark">
+        <Navbar className='fixed-top' expanded={expanded}
+            onToggle={() => setExpanded(!expanded)} expand="lg"
+            bg="dark" variant="dark">
             <Navbar.Brand href="/home">My Pets</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -21,7 +23,10 @@ const NavBar = () => {
                     setExpanded(false)
                 }}>
                     <Nav.Link as={Link} to="/" >Inicio</Nav.Link>
-                    <Nav.Link as={Link} to="/usuarios">Usuarios</Nav.Link>
+                    {user && (user.isVet ?
+                        <Nav.Link as={Link} to="/usuarios">Usuarios</Nav.Link> :
+                        <Nav.Link as={Link} to={`/carnets/${user.uid}`}>Carnets</Nav.Link>
+                    )}
                 </Nav>
                 <Nav onClick={() => { setExpanded(false) }}>
                     {!user && userLoaded ? <>
