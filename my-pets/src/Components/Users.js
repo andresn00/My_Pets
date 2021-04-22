@@ -45,7 +45,11 @@ const Users = () => {
     return (
         <>
             <div className='m-2 p-2'>
-                <h2>Usuarios</h2><hr></hr>
+                <h2>Usuarios
+                    <small className='text-muted ml-2 pl-1'>
+                        {usersAreVets ? 'Doctores' : 'Clientes'}
+                    </small>
+                </h2><hr></hr>
                 <Container className='mx-0'>
                     <Row>
                         <Col xs={12} md={8}>

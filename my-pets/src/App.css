@@ -50,5 +50,15 @@ body .bg-dark {
 }
 
 .basicPetInfo label {
+  font-size: large;
   font-weight: bold;
+  color: #001f40; 
+  /*
+  color label: #4da3ff
+  color bg info basica: #001f40
+  color menu: #007bff
+  */
+}
+.basicPetInfo input {
+  color: #f6f6f6;
 }
