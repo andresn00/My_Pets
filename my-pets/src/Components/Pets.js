@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { getPetById } from '../pets'
 
-import { Col, Row, Container, Card, Breadcrumb, Form } from 'react-bootstrap'
+import { Col, Row, Container, Card, Form, Tab, Tabs } from 'react-bootstrap'
 
 const Pets = (props) => {
     // const petId = props.match.params.id
@@ -21,12 +21,12 @@ const Pets = (props) => {
         <Container className='m-0' fluid >
             <Row style={{ minHeight: '100vh' }}>
                 <Col className='pt-3' lg={3} md={4}
-                    style={{ backgroundColor: '#46ce46', color: 'black' }}
+                    style={{ backgroundColor: '#007BFF', color: '#f6f6f6' }}
                 >
                     <Card style={{ width: '225px', height: '225px', overflow: 'hidden' }}
                         className='rounded-circle mx-auto'>
-                        <Card.Img variant="top" className='img-thumbnail'
-                            src="https://www.jamiesale-cartoonist.com/wp-content/uploads/dog-12.png" />
+                        <Card.Img variant="top"
+                            src="https://t2.ea.ltmcdn.com/es/images/1/6/2/img_10_curiosidades_del_golden_retriever_21261_orig.jpg" />
                     </Card>
                     {/* <Image style={{ width: '225px', height: '225px', overflow: 'hidden' }}
                         roundedCircle thumbnail
@@ -65,11 +65,17 @@ const Pets = (props) => {
                 </Col>
                 <Col className='pt-3'>
                     <h1>Historial Médico</h1><hr />
-                    <Breadcrumb style={{ width: 'fit-content' }}>
-                        <Breadcrumb.Item active>Desparacitaciones</Breadcrumb.Item>
-                        <Breadcrumb.Item>Vacunas</Breadcrumb.Item>
-                        <Breadcrumb.Item>Otros</Breadcrumb.Item>
-                    </Breadcrumb>
+                    <Tabs defaultActiveKey='desparacitaciones'>
+                        <Tab eventKey='desparacitaciones' title='Desparacitaciones'>
+                            D
+                        </Tab>
+                        <Tab eventKey='vacunas' title='Vacunas'>
+                            V
+                        </Tab>
+                        <Tab eventKey='otros' title='Otros'>
+                            O
+                        </Tab>
+                    </Tabs>
                 </Col>
             </Row>
         </Container>

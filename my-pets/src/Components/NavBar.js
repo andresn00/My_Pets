@@ -16,7 +16,11 @@ const NavBar = () => {
         <Navbar expanded={expanded}
             onToggle={() => setExpanded(!expanded)} expand="lg"
             bg="dark" variant="dark">
-            <Navbar.Brand href="/home">My Pets</Navbar.Brand>
+            <Navbar.Brand href="/home">
+                <img className="d-inline-block align-top" width='30' height='30'
+                    src='../LogoSolo.png' alt='My Pets'/>
+                My Pets
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto" onClick={() => {
