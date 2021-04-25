@@ -37,7 +37,7 @@ function App() {
             <ProtectedRoute redirectTo='/home' path='/profile'>
               <ProfilePage />
             </ProtectedRoute>
-            <ProtectedVetRoute path='/usuarios' redirectTo='/'>
+            <ProtectedVetRoute path='/users' redirectTo='/'>
               <Users />
             </ProtectedVetRoute>
             {/* <Route path='/usuarios' component={Users} /> */}

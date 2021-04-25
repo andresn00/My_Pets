@@ -36,27 +36,27 @@ const Pets = (props) => {
                     <h1 className='text-center pt-1'>{pet.nombre}</h1>
                     <Form className='basicPetInfo'>
                         <Form.Group controlId="propietario">
-                            <Form.Label>Propietario</Form.Label>
+                            <Form.Text>Propietario</Form.Text>
                             <Form.Control plaintext readOnly defaultValue={pet.propietario} />
                         </Form.Group>
                         <Form.Group controlId="fechaNacimiento">
-                            <Form.Label>Fecha de Nacimiento</Form.Label>
+                            <Form.Text>Fecha de Nacimiento</Form.Text>
                             <Form.Control plaintext readOnly defaultValue={pet.fechaNacimiento} />
                         </Form.Group>
                         <Form.Group controlId="especie">
-                            <Form.Label>Especie</Form.Label>
+                            <Form.Text>Especie</Form.Text>
                             <Form.Control plaintext readOnly defaultValue={pet.especie} />
                         </Form.Group>
                         <Form.Group controlId="raza">
-                            <Form.Label>Raza</Form.Label>
+                            <Form.Text>Raza</Form.Text>
                             <Form.Control plaintext readOnly defaultValue={pet.raza} />
                         </Form.Group>
                         <Form.Group controlId="sexo">
-                            <Form.Label>Sexo</Form.Label>
+                            <Form.Text>Sexo</Form.Text>
                             <Form.Control plaintext readOnly defaultValue={pet.sexo} />
                         </Form.Group>
                         <Form.Group controlId="color">
-                            <Form.Label>Color</Form.Label>
+                            <Form.Text>Color</Form.Text>
                             <Form.Control plaintext readOnly defaultValue={pet.color} />
                         </Form.Group>
                     </Form>

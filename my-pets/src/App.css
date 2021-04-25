@@ -59,6 +59,9 @@ body .bg-dark {
   color menu: #007bff
   */
 }
+.basicPetInfo small {
+  color: #d2e8ff;
+}
 .basicPetInfo input {
   color: #f6f6f6;
 }

@@ -26,9 +26,9 @@ const NavBar = () => {
                 <Nav className="mr-auto" onClick={() => {
                     setExpanded(false)
                 }}>
-                    <Nav.Link as={Link} to="/" >Inicio</Nav.Link>
+                    {/* <Nav.Link as={Link} to="/" >Inicio</Nav.Link> */}
                     {user && (user.isVet ?
-                        <Nav.Link as={Link} to="/usuarios">Usuarios</Nav.Link> :
+                        <Nav.Link as={Link} to="/users">Usuarios</Nav.Link> :
                         <Nav.Link as={Link} to={`/carnets/${user.uid}`}>Carnets</Nav.Link>
                     )}
                 </Nav>
@@ -38,7 +38,7 @@ const NavBar = () => {
                     <Nav.Link as={Link} to="/signUp">Registrarse</Nav.Link>
                     </> : <>
                         <Nav.Link as={Link} to="/profile">Perfil</Nav.Link>
-                        <Nav.Link onClick={() => auth.signOut()}>Sign out</Nav.Link>    
+                        <Nav.Link onClick={() => auth.signOut()}>Cerrar Sesión</Nav.Link>    
                     </>
                     }
                 </Nav>
