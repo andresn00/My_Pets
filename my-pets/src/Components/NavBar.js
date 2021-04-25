@@ -17,8 +17,8 @@ const NavBar = () => {
             onToggle={() => setExpanded(!expanded)} expand="lg"
             bg="dark" variant="dark">
             <Navbar.Brand href="/home">
-                <img className="d-inline-block align-top" width='30' height='30'
-                    src='../LogoSolo.png' alt='My Pets'/>
+                <img className="d-inline-block align-top mr-2" width='27' height='27'
+                    src='../LogoSoloAzul.png'/>
                 My Pets
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
