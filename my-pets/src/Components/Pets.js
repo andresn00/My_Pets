@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getPetById } from '../pets'
+import PetsTable from './PetsTable'
 
 import { Col, Row, Container, Card, Form, Tab, Tabs } from 'react-bootstrap'
 
@@ -9,11 +10,12 @@ const Pets = (props) => {
     const petId = 'qhn2bPogJYc2q2mM1uE1'
     const [pet, setPet] = useState({})
     useEffect(() => {
-        const getUsers = async () => {
+        const getPet = async () => {
             const p = await getPetById(petId)
-            setPet({ ...p, fechaNacimiento:  new Date(p.fechaNacimiento.toMillis()).toLocaleDateString('en-GB') })
+            setPet({ ...p, fechaNacimiento: new Date(p.fechaNacimiento.toMillis()).toLocaleDateString('en-GB') })
+            console.log('Pet en Pets', pet)
         }
-        getUsers()
+        getPet()
 
     }, [])
 
@@ -67,13 +69,13 @@ const Pets = (props) => {
                     <h1>Historial Médico</h1><hr />
                     <Tabs defaultActiveKey='desparacitaciones'>
                         <Tab eventKey='desparacitaciones' title='Desparacitaciones'>
-                            D
+                            <PetsTable historial={pet.historial} tipo={1} />
                         </Tab>
                         <Tab eventKey='vacunas' title='Vacunas'>
-                            V
+                            <PetsTable historial={pet.historial} tipo={2} />
                         </Tab>
                         <Tab eventKey='otros' title='Otros'>
-                            O
+                            <PetsTable historial={pet.historial} tipo={3} />
                         </Tab>
                     </Tabs>
                 </Col>
