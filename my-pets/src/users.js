@@ -1,4 +1,3 @@
-import { auth } from './firebase'
 import { getAllDocs, getAllDocsWhere, getDocById, addDocument, updateDocument } from "./firestore"
 
 export const getUsers = async () => {

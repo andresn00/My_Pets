@@ -24,25 +24,26 @@ function App() {
       {userLoaded ?
         <Router>
           <NavBar />
-          <Switch>
-            <Route exact path='/signIn'>
-              {user ?
-                <Redirect to='/home' /> : <SignIn />}
-            </Route>
-            <Route path='/signUp'>
-              {!user ?
-                <SignUp /> : <Redirect to='/home' />}
-            </Route>
+          <div className='mt-5 pt-1'>
+            <Switch>
+              <Route exact path='/signIn'>
+                {user ?
+                  <Redirect to='/home' /> : <SignIn />}
+              </Route>
+              <Route path='/signUp'>
+                {!user ?
+                  <SignUp /> : <Redirect to='/home' />}
+              </Route>
 
-            <ProtectedRoute redirectTo='/home' path='/profile'>
-              <ProfilePage />
-            </ProtectedRoute>
-            <ProtectedVetRoute path='/users' redirectTo='/'>
-              <Users />
-            </ProtectedVetRoute>
-            {/* <Route path='/usuarios' component={Users} /> */}
-            <Route path='/carnets/:id' component={Carnets} />
-            <Route path='/pets/:id' component={Pets} />
+              <ProtectedRoute redirectTo='/home' path='/profile'>
+                <ProfilePage />
+              </ProtectedRoute>
+              <ProtectedVetRoute path='/users' redirectTo='/'>
+                <Users />
+              </ProtectedVetRoute>
+              {/* <Route path='/usuarios' component={Users} /> */}
+              <Route path='/carnets/:id' component={Carnets} />
+              <Route path='/pets/:id' component={Pets} />
 
               {/* {user ?
                 <Carnets /> : <Redirect to='/home' />}
@@ -51,9 +52,10 @@ function App() {
             {user ?
                 <Pets /> : <Redirect to='/home' />}
             </Route> */}
-            
 
-          </Switch>
+
+            </Switch>
+          </div>
         </Router>
         :
         <div>Loading...</div>

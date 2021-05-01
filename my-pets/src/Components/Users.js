@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { getUsers, getUsersWhereVet } from '../users'
+import { getUsersWhereVet } from '../users'
 import { UserContext } from '../Providers/UserProvider'
 
 import { Link, useHistory } from 'react-router-dom'
