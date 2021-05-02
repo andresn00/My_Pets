@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Table, Button } from 'react-bootstrap'
-const PetsTable = ({ historial, tipo }) => {
+
+const PetsTable = ({ historial, tipo, onClick }) => {
     const tipoToString = () => {
         switch (tipo) {
             case 1:
@@ -13,9 +14,10 @@ const PetsTable = ({ historial, tipo }) => {
     }
     return (
         <>
-            <Button className='my-4' variant='success'>
+            <Button className='my-4' variant='success' onClick={onClick}>
                 Nueva {tipoToString()}
             </Button>
+
             <Table bordered hover striped responsive size='sm'>
                 <thead>
                     <tr>

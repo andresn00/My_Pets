@@ -1,4 +1,4 @@
-import {getAllDocs, getAllDocsWhere, getDocById, addDocument} from "./firestore"
+import {getAllDocs, getAllDocsWhere, getDocById, addDocument, updateDocument} from "./firestore"
 
 export const getPets = async () => {
     return await getAllDocs("pets")
@@ -23,4 +23,8 @@ export const addPet = async (uid, name, fechaNacimiento, especie, raza, sexo, co
         propietario: uid
     }
     return await addDocument("pets", pet)
+}
+
+export const updatePet = async (id, data) => {
+    return await updateDocument('pets', id, data)
 }

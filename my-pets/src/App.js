@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
 import { UserContext } from './Providers/UserProvider';
+import { Spinner } from 'react-bootstrap'
 
 import About from './Components/About';
 import NavBar from './Components/NavBar';
@@ -58,7 +59,10 @@ function App() {
           </div>
         </Router>
         :
-        <div>Loading...</div>
+        <div className='text-center mt-5'>
+          <Spinner animation="border" variant='primary'
+            style={{ width: '15vmin', height: '15vmin' }} />
+        </div>
       }
 
     </>
