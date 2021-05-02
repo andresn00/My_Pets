@@ -51,7 +51,7 @@ const Pets = (props) => {
                 <Col className='pt-3' lg={3} md={4}
                     style={{ backgroundColor: '#007BFF', color: '#f6f6f6' }}
                 >
-                    <Card style={{ width: '225px', height: '225px', overflow: 'hidden' }}
+                    <Card style={imgStyle}
                         className='rounded-circle mx-auto'>
                         <Card.Img variant="top"
                             src="https://t2.ea.ltmcdn.com/es/images/1/6/2/img_10_curiosidades_del_golden_retriever_21261_orig.jpg" />
@@ -122,3 +122,13 @@ const Pets = (props) => {
 }
 
 export default Pets
+
+//Estilos
+const imgStyle = {
+    width: '225px',
+    height: '225px',
+    overflow: 'hidden',
+    borderStyle: 'solid',
+    borderWidth: 'thick',
+    borderColor: 'white',
+}
