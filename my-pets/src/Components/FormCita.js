@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import { Modal, Button, Form, Col } from 'react-bootstrap'
 
 const FormCita = (props) => {
+    const [fecha, setFecha] = useState('')
+    console.log('fecha', fecha)
     return (
         <Modal
             {...props}
@@ -11,7 +13,7 @@ const FormCita = (props) => {
             centered
         >
             <Modal.Header closeButton
-                style={{ backgroundColor: '#007bff', borderColor: '#007bff', color:'white' }}>
+                style={modalHeaderStyle}>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Nueva Cita
                 </Modal.Title>
@@ -22,7 +24,8 @@ const FormCita = (props) => {
                         <Col>
                             <Form.Group controlId="fecha">
                                 <Form.Label>Fecha</Form.Label>
-                                <Form.Control type='date' />
+                                <Form.Control type='date' value={fecha}
+                                    onChange={(e) => setFecha(e.target.value)} />
                             </Form.Group>
                         </Col>
                         <Col>
@@ -85,3 +88,9 @@ const FormCita = (props) => {
 }
 
 export default FormCita
+
+const modalHeaderStyle = {
+    backgroundColor: '#007bff',
+    borderColor: '#007bff',
+    color: 'white'
+}

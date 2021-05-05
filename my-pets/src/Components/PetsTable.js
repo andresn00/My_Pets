@@ -1,7 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table, Button } from 'react-bootstrap'
 
-const PetsTable = ({ historial, tipo, onClick }) => {
+import { getCitasWherePet } from '../citas'
+
+const PetsTable = ({ petId, tipo, onClick }) => {
+    const [citas, setCitas] = useState([])
+    useEffect(() => {
+        const getCitas = async () => {
+            const citas = await getCitasWherePet(petId)
+            setCitas(citas)
+        }
+        getCitas()
+
+    }, [])
+
     const tipoToString = () => {
         switch (tipo) {
             case 1:
@@ -30,7 +42,7 @@ const PetsTable = ({ historial, tipo, onClick }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {historial?.slice(0).reverse().map((cita, index) => (cita.tipo === tipo ?
+                    {citas?.slice(0).reverse().map((cita, index) => (cita.tipo === tipo ?
                         (
                             <tr key={index}>
                                 <td>{cita.fecha.toDate().toLocaleDateString('en-GB') || 'n/a'}</td>

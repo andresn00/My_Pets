@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getPetById } from '../pets'
+import { getUserById } from '../users'
 import PetsTable from './PetsTable'
 
 import { Col, Row, Container, Card, Form, Tab, Tabs, Button } from 'react-bootstrap'
@@ -17,6 +18,7 @@ const Pets = (props) => {
         sexo: '',
         color: '',
     })
+    const [propietario, setPropietario] = useState({nombre: ''})
     const [modalShow, setModalShow] = useState(false)
     const [tabActiveKey, setTabActiveKey] = useState(1)
 
@@ -27,6 +29,8 @@ const Pets = (props) => {
                 ...p,
                 fechaNacimiento: p.fechaNacimiento.toDate(),
             })
+            const propietario = await getUserById(p.propietario)
+            setPropietario(propietario)
         }
         getPet()
 
@@ -65,7 +69,7 @@ const Pets = (props) => {
                     <Form className='basicPetInfo'>
                         <Form.Group controlId="propietario">
                             <Form.Text>Propietario</Form.Text>
-                            <Form.Control plaintext readOnly value={pet.propietario} onChange={() => { }} />
+                            <Form.Control plaintext readOnly value={propietario.nombre} onChange={() => { }} />
                         </Form.Group>
                         <Form.Group controlId="fechaNacimiento">
                             <Form.Text>Fecha de Nacimiento</Form.Text>
@@ -101,13 +105,16 @@ const Pets = (props) => {
                     <h1>Historial Médico</h1><hr />
                     <Tabs defaultActiveKey={1} onSelect={(k) => setTabActiveKey(k)}>
                         <Tab eventKey={1} title='Desparacitaciones'>
-                            <PetsTable historial={pet.historial} tipo={1} onClick={() => setModalShow(true)}/>
+                            <PetsTable tipo={1} petId={petId}
+                                onClick={() => setModalShow(true)} />
                         </Tab>
                         <Tab eventKey={2} title='Vacunas'>
-                            <PetsTable historial={pet.historial} tipo={2} onClick={() => setModalShow(true)}/>
+                            <PetsTable tipo={2} petId={petId}
+                                onClick={() => setModalShow(true)} />
                         </Tab>
                         <Tab eventKey={3} title='Otros'>
-                            <PetsTable historial={pet.historial} tipo={3} onClick={() => setModalShow(true)}/>
+                            <PetsTable tipo={3} petId={petId}
+                                onClick={() => setModalShow(true)} />
                         </Tab>
                     </Tabs>
                     <FormCita
