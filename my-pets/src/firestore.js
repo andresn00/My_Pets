@@ -57,3 +57,13 @@ export const updateDocument = async (collectionName, id, doc) => {
     return {...doc, id: id}
 }
 
+export const deleteDocument = async (collectionName, id) => {
+    const database = firebase.firestore()
+    const collectionRef = database.collection(collectionName)
+    const result = await collectionRef.doc(id).delete()
+    return result
+}
+
+export const convertToTimestamp = (date) => {
+    return firebase.firestore.Timestamp.fromDate(date)
+}

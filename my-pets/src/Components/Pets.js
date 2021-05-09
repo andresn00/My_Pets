@@ -5,7 +5,6 @@ import { getUserById } from '../users'
 import PetsTable from './PetsTable'
 
 import { Col, Row, Container, Card, Form, Tab, Tabs, Button } from 'react-bootstrap'
-import FormCita from './FormCita'
 
 const Pets = (props) => {
     // const petId = props.match.params.id
@@ -19,8 +18,6 @@ const Pets = (props) => {
         color: '',
     })
     const [propietario, setPropietario] = useState({nombre: ''})
-    const [modalShow, setModalShow] = useState(false)
-    const [tabActiveKey, setTabActiveKey] = useState(1)
 
     useEffect(() => {
         const getPet = async () => {
@@ -103,25 +100,17 @@ const Pets = (props) => {
                 </Col>
                 <Col className='pt-3'>
                     <h1>Historial Médico</h1><hr />
-                    <Tabs defaultActiveKey={1} onSelect={(k) => setTabActiveKey(k)}>
+                    <Tabs defaultActiveKey={1} >
                         <Tab eventKey={1} title='Desparacitaciones'>
-                            <PetsTable tipo={1} petId={petId}
-                                onClick={() => setModalShow(true)} />
+                            <PetsTable tipocita={1} petId={petId}/>
                         </Tab>
                         <Tab eventKey={2} title='Vacunas'>
-                            <PetsTable tipo={2} petId={petId}
-                                onClick={() => setModalShow(true)} />
+                            <PetsTable tipocita={2} petId={petId}/>
                         </Tab>
                         <Tab eventKey={3} title='Otros'>
-                            <PetsTable tipo={3} petId={petId}
-                                onClick={() => setModalShow(true)} />
+                            <PetsTable tipocita={3} petId={petId}/>
                         </Tab>
                     </Tabs>
-                    <FormCita
-                        tipo={tabActiveKey}
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                    />
                 </Col>
             </Row>
         </Container>

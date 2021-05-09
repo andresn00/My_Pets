@@ -1,4 +1,7 @@
-import {getAllDocsWhere, getDocById, addDocument} from "./firestore"
+import {
+    getAllDocsWhere, getDocById, addDocument,
+    updateDocument, deleteDocument
+} from "./firestore"
 
 
 export const getCitasWherePet = async pid => {
@@ -9,18 +12,14 @@ export const getCitaById = async id => {
     return await getDocById("citas", id)
 }
 
-export const addCita = async (fecha, fechaProxima, peso, tipo, descripcion, producto, dosis, pet) => {
-    var cita = {
-        fecha,
-        peso,
-        tipo,
-        descripcion,
-        producto,
-        dosis,
-        pet
-    }
-    if (fechaProxima) {
-        cita.fechaProxima = fechaProxima
-    }
+export const addCita = async (cita) => {
     return await addDocument("citas", cita)
+}
+
+export const updateCita = async (id, cita) => {
+    updateDocument('citas', id, cita)
+}
+
+export const deleteCita = async (id) => {
+    deleteDocument('citas', id)
 }
