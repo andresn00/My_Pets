@@ -7,8 +7,8 @@ import PetsTable from './PetsTable'
 import { Col, Row, Container, Card, Form, Tab, Tabs, Button } from 'react-bootstrap'
 
 const Pets = (props) => {
-    // const petId = props.match.params.id
-    const petId = 'qhn2bPogJYc2q2mM1uE1'
+    const petId = props.match.params.id
+    // const petId = 'qhn2bPogJYc2q2mM1uE1'
     const [pet, setPet] = useState({
         propietario: '',
         fechaNacimiento: new Date(),
@@ -52,11 +52,11 @@ const Pets = (props) => {
                 <Col className='pt-3' lg={3} md={4}
                     style={{ backgroundColor: '#007BFF', color: '#f6f6f6' }}
                 >
-                    <Card style={imgStyle}
+                    <div style={imgStyle}
                         className='rounded-circle mx-auto'>
-                        <Card.Img variant="top"
+                        <img style={{width: '225px'}}
                             src="https://t2.ea.ltmcdn.com/es/images/1/6/2/img_10_curiosidades_del_golden_retriever_21261_orig.jpg" />
-                    </Card>
+                    </div>
                     {/* <Image style={{ width: '225px', height: '225px', overflow: 'hidden' }}
                         roundedCircle thumbnail
                         src='https://www.pngfind.com/pngs/m/84-842250_cute-dog-cartoon-png-www-pixshark-com-images.png'

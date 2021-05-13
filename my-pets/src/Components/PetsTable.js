@@ -119,8 +119,8 @@ const PetsTable = ({ petId, tipocita }) => {
                 onHide={() => setConfirmationModalShow(false)}
                 confirmfunction={() => DeleteCita()}
                 btnVariant='danger' btnMessage='Eliminar'
-                header='Eliminar Cita' body={`¿Está seguro que desea eliminar la cita? 
-                Esta acción no puede ser revertida.`}
+                header='Eliminar Cita' body='¿Está seguro que desea eliminar la cita? 
+                Esta acción no puede ser revertida.'
             />
 
         </>
