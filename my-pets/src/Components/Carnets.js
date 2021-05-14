@@ -64,18 +64,21 @@ const Carnets = (props) => {
                             <Card style={{ width: '16rem' }} onClick={() => handleCarnetClick(pet.id)}>
                                 <Card.Img variant="top" src="https://www.ecestaticos.com/image/clipping/79776773aab795837282c7d4947abaf7/por-que-nos-parece-que-los-perros-sonrien-una-historia-de-30-000-anos.jpg" />
                                 <Card.Body className='pt-3 pb-1'>
-                                    <Card.Title><h4>{pet.nombre}</h4></Card.Title>
-                                    {/* <Card.Text>
-                                        {pet.raza}<br />
-                                        {getAgeInString(calcAge(pet.fechaNacimiento.toDate()))}
-                                    </Card.Text> */}
+                                    <Card.Title><h4 className='font-weight-bold'>{pet.nombre}</h4></Card.Title>
+                                    <hr />
+                                    <div>
+                                        <div className='mb-2'>{pet.raza}</div>
+                                        <div className='mb-2'>
+                                            {getAgeInString(calcAge(pet.fechaNacimiento.toDate()))}
+                                        </div>
+                                    </div>
                                 </Card.Body>
-                                <ListGroup variant='flush'>
+                                {/* <ListGroup variant='flush'>
                                     <ListGroupItem className='py-2'>Raza: {pet.raza}</ListGroupItem>
                                     <ListGroupItem className='py-2'>
                                         Edad: {getAgeInString(calcAge(pet.fechaNacimiento.toDate()))}
                                     </ListGroupItem>
-                                </ListGroup>
+                                </ListGroup> */}
                                 <Card.Footer className="text-muted">
                                     No hay citas pendientes
                                     </Card.Footer>

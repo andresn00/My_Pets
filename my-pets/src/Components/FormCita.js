@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import {convertToTimestamp} from '../firestore'
+import { convertToTimestamp } from '../firestore'
 
-import { Modal, Button, Form, Col, InputGroup } from 'react-bootstrap'
-import { FaEraser } from "react-icons/fa";
+import { Modal, Button, Form, Col, InputGroup, ToggleButtonGroup, ToggleButton, FormGroup } from 'react-bootstrap'
+import { FaEraser, FaCircle } from "react-icons/fa";
+
+import {getEstadoText} from '../utils'
 
 const FormCita = (props) => {
     // const [cita, setCita] = useState({})
     const cita = props.cita
+    const [estado, setEstado] = useState(cita.estado)
     const [fecha, setFecha] = useState(cita.fecha)
     const [fechaProxima, setFechaProxima] = useState(cita.fechaProxima)
     const [peso, setPeso] = useState(cita.peso)
@@ -19,6 +22,7 @@ const FormCita = (props) => {
     useEffect(() => {
         const setCitaValues = () => {
             const cita = props.cita
+            setEstado(cita.estado || 1)
             setFecha(toIsoString(cita.fecha?.toDate()).substr(0, 16) || toIsoString().substr(0, 16))
             setFechaProxima(toIsoString(cita.fechaProxima?.toDate()).substr(0, 16) || '')
             setPeso(cita.peso || '')
@@ -32,8 +36,9 @@ const FormCita = (props) => {
 
     const Save = () => {
         const cita = {
+            estado,
             fecha: convertToTimestamp(new Date(fecha)),
-            ...(fechaProxima && {fechaProxima: convertToTimestamp(new Date(fechaProxima))}),
+            ...(fechaProxima && { fechaProxima: convertToTimestamp(new Date(fechaProxima)) }),
             peso,
             tipo: parseInt(tipo),
             descripcion,
@@ -48,11 +53,11 @@ const FormCita = (props) => {
     const toIsoString = (date = new Date()) => {
         var tzo = -date.getTimezoneOffset(),
             dif = tzo >= 0 ? '+' : '-',
-            pad = function(num) {
+            pad = function (num) {
                 var norm = Math.floor(Math.abs(num));
                 return (norm < 10 ? '0' : '') + norm;
             };
-      
+
         return date.getFullYear() +
             '-' + pad(date.getMonth() + 1) +
             '-' + pad(date.getDate()) +
@@ -61,7 +66,7 @@ const FormCita = (props) => {
             ':' + pad(date.getSeconds()) +
             dif + pad(tzo / 60) +
             ':' + pad(tzo % 60);
-      }
+    }
 
     return (
         <Modal
@@ -78,6 +83,26 @@ const FormCita = (props) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
+                    <Form.Row>
+                        <Col lg={4} xs={6}>
+                            <FormGroup controlId='estado'>
+                                <Form.Label>Estado: </Form.Label>
+                                <InputGroup>
+                                    <Form.Control as='select' value={estado}
+                                        onChange={(e) => setEstado(e.target.value)}>
+                                        <option value={1}>Completada</option>
+                                        <option value={2}>Pendiente</option>
+                                        <option value={3}>Cancelada</option>
+                                    </Form.Control>
+                                    <InputGroup.Append className='align-self-center ml-2'>
+                                        <FaCircle
+                                            className={`text-${getEstadoText(estado)}`} />
+                                    </InputGroup.Append>
+
+                                </InputGroup>
+                            </FormGroup>
+                        </Col>
+                    </Form.Row>
                     <Form.Row>
                         <Col>
                             <Form.Group controlId="fecha">
@@ -116,11 +141,7 @@ const FormCita = (props) => {
                             <Form.Group controlId="tipo">
                                 <Form.Label>Tipo</Form.Label>
                                 <Form.Control as='select' value={tipo}
-                                    onChange={(e) => {
-                                        console.log('antes', tipo)
-                                        setTipo(e.target.value)
-                                        console.log('despues', tipo)
-                                    }}>
+                                    onChange={(e) => setTipo(e.target.value)}>
                                     <option value={1}>Desparacitacion</option>
                                     <option value={2}>Vacuna</option>
                                     <option value={3}>Otro</option>
