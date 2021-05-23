@@ -86,9 +86,12 @@ body .bg-dark {
   transition-duration: 0.5s;
   color: black;
   font-size: x-large;
+  /* box-shadow: 0 0 10px 2px #000000; */
 }
 
-/* .card :hover {
-  cursor: pointer;
-  opacity: 0.5;
+/* .card:hover {
+  box-shadow: none;
 } */
+.card {
+  box-shadow: 0 0px 7px 0.5px #bababa;
+}

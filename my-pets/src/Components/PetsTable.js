@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Button } from 'react-bootstrap'
-import { FaTimes, FaPen, FaPencilRuler } from "react-icons/fa";
+import { Table, Button, Alert } from 'react-bootstrap'
+import { FaTimes, FaPen, FaPencilRuler, FaCircle } from "react-icons/fa";
 
 import FormCita from './FormCita'
 import { getCitasWherePet, addCita, updateCita, deleteCita } from '../citas'
 import ConfirmationModal from './ConfirmationModal';
 
+import { getEstadoText } from '../utils'
+
 const PetsTable = ({ petId, tipocita }) => {
     const [citas, setCitas] = useState([])
+    const [citasPendientes, setCitasPendientes] = useState([])
+    const [citasCompletadas, setCitasCompletadas] = useState([])
     const [citaToUpdate, setCitaToUpdate] = useState({})
     const [citaToDelete, setCitaToDelete] = useState({})
     const [confirmationModalShow, setConfirmationModalShow] = useState(false)
@@ -17,10 +21,28 @@ const PetsTable = ({ petId, tipocita }) => {
         const getCitas = async () => {
             const citas = await getCitasWherePet(petId)
             setCitas(citas)
+            SplitCitas(citas)
         }
         getCitas()
 
     }, [])
+
+    const SplitCitas = (citas) => {
+        const pendientes = []
+        const completadas = []
+        citas.map((c) => {
+            if (c.estado === 1) {
+                completadas.push(c)
+            }
+            else if (c.estado === 2) {
+                pendientes.push(c)
+            }
+        })
+        setCitasCompletadas(completadas)
+        setCitasPendientes(pendientes)
+        console.log('cc', completadas);
+        console.log('cp', citasPendientes);
+    }
 
     const AddCita = (cita) => {
         cita.pet = petId
@@ -39,6 +61,17 @@ const PetsTable = ({ petId, tipocita }) => {
         console.log('deleteCita', citaToDelete)
         deleteCita(id)
         setCitas([...citas.filter((c) => c.id !== id)])
+    }
+
+    const AddProxCita = (citaActual) => {
+        const citaProx = {
+            estado: 2,
+            fechaProxima: citaActual.fechaProxima
+        }
+        addCita(citaProx)
+        setCitas([...citas, citaProx])
+        SplitCitas([...citas, citaProx])
+
     }
 
     const tipoToString = () => {
@@ -63,6 +96,10 @@ const PetsTable = ({ petId, tipocita }) => {
                 Nueva {tipoToString()}
             </Button>
 
+
+            <Alert variant='warning' className='mb-4'>
+                <h2>Citas Pendientes</h2>
+            </Alert>
             <Table bordered hover striped responsive size='sm'>
                 <thead>
                     <tr>
@@ -76,7 +113,55 @@ const PetsTable = ({ petId, tipocita }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {citas?.slice(0).reverse().map((cita, index) => (cita.tipo === tipocita ?
+                    {citasPendientes?.slice(0).reverse().map((cita, index) => (cita.tipo === tipocita ?
+                        (
+                            <tr key={index}>
+                                <td>{cita.fecha?.toDate().toLocaleDateString('en-GB') || 'n/a'}</td>
+                                <td>{cita.fechaProxima?.toDate().toLocaleDateString('en-GB') || 'n/a'}</td>
+                                <td>{cita.peso || 'n/a'}</td>
+                                <td>{cita.descripcion || 'n/a'}</td>
+                                <td>{cita.producto || 'n/a'}</td>
+                                <td>{cita.dosis || 'n/a'}</td>
+                                <td className='text-center'>
+                                    <FaPen onClick={() => {
+                                        setModalShow(true)
+                                        setModalType('update')
+                                        setCitaToUpdate(cita)
+                                    }}
+                                        className='cursorPointer'
+                                    />
+                                    {' '}
+                                    <FaTimes onClick={() => {
+                                        setConfirmationModalShow(true)
+                                        setCitaToDelete(cita)
+                                    }}
+                                        className='cursorPointer'
+                                    />
+                                </td>
+                            </tr>
+                        ) : null
+                    )
+                    )}
+                </tbody>
+            </Table>
+
+            <Alert variant='success' className='mt-5'>
+                <h2>Citas Completadas</h2>
+            </Alert>
+            <Table bordered hover striped responsive size='sm'>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Fecha próxima</th>
+                        <th>Peso</th>
+                        <th>Descripción</th>
+                        <th>Producto</th>
+                        <th>Dosis</th>
+                        <th className='text-center'><FaPencilRuler /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {citasCompletadas?.slice(0).reverse().map((cita, index) => (cita.tipo === tipocita ?
                         (
                             <tr key={index}>
                                 <td>{cita.fecha?.toDate().toLocaleDateString('en-GB') || 'n/a'}</td>
