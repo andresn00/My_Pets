@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Button, Alert } from 'react-bootstrap'
-import { FaTimes, FaPen, FaPencilRuler, FaCircle } from "react-icons/fa";
+import { FaTimes, FaPen, FaPencilRuler } from "react-icons/fa";
 
 import FormCita from './FormCita'
+import { updatePetCitasPendientes } from '../pets'
 import { getCitasWherePet, addCita, updateCita, deleteCita } from '../citas'
 import ConfirmationModal from './ConfirmationModal';
-
-import { getEstadoText } from '../utils'
 
 const PetsTable = ({ petId, tipocita }) => {
     const [citas, setCitas] = useState([])
@@ -26,6 +25,14 @@ const PetsTable = ({ petId, tipocita }) => {
         getCitas()
 
     }, [])
+
+    useEffect(() => {
+        const updateCitasPendientes = () => {
+            //Agrega el numero de citas pendientes a la mascota
+            updatePetCitasPendientes(petId, citasPendientes.length)
+        }
+        updateCitasPendientes()
+    }, [citasPendientes])
 
     const SplitCitas = (citas) => {
         const pendientes = []
@@ -91,7 +98,6 @@ const PetsTable = ({ petId, tipocita }) => {
         addCita(citaProx)
         setCitas([...citas, citaProx])
         setCitasPendientes([...citasPendientes, citaProx])
-
     }
 
     const tipoToString = () => {

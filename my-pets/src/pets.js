@@ -28,3 +28,9 @@ export const addPet = async (uid, name, fechaNacimiento, especie, raza, sexo, co
 export const updatePet = async (id, data) => {
     return await updateDocument('pets', id, data)
 }
+export const updatePetCitasPendientes = async (id, citasPendientes) => {
+    const data = {
+        citasPendientes
+    }
+    return await updateDocument('pets', id, data)
+}

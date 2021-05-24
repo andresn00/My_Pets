@@ -5,7 +5,7 @@ import { getUserPets } from '../pets'
 import { FaPlus, FaEye } from 'react-icons/fa'
 import {
     Card, Container, Row, Col, Button,
-    ListGroup, ListGroupItem
+    ListGroup, ListGroupItem, Badge
 } from 'react-bootstrap'
 
 const Carnets = (props) => {
@@ -79,9 +79,15 @@ const Carnets = (props) => {
                                         Edad: {getAgeInString(calcAge(pet.fechaNacimiento.toDate()))}
                                     </ListGroupItem>
                                 </ListGroup> */}
-                                <Card.Footer className="text-muted">
-                                    No hay citas pendientes
-                                    </Card.Footer>
+                                <Card.Footer>
+                                    {pet.citasPendientes > 0 ?
+                                        <Badge variant='warning' className='mr-2'>
+                                            {pet.citasPendientes}
+                                        </Badge> :
+                                        'No tiene '
+                                    }
+                                    citas pendientes
+                                </Card.Footer>
                                 <div className='cardDiv rounded d-flex align-items-center justify-content-center'>
                                     <FaEye />
                                 </div>
