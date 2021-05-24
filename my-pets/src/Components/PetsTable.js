@@ -40,21 +40,39 @@ const PetsTable = ({ petId, tipocita }) => {
         })
         setCitasCompletadas(completadas)
         setCitasPendientes(pendientes)
-        console.log('cc', completadas);
-        console.log('cp', citasPendientes);
+        console.log('cc', completadas, citasCompletadas);
+        console.log('cp', pendientes, citasPendientes);
     }
 
-    const AddCita = (cita) => {
+    const AddCita = (cita, agendarProxCita = false) => {
         cita.pet = petId
         console.log('addCita', cita)
         addCita(cita)
         setCitas([...citas, cita])
+        if (cita.estado === 1) {
+            setCitasCompletadas([...citasCompletadas, cita])
+        }
+        else if (cita.estado === 2) {
+            setCitasPendientes([...citasPendientes, cita])
+        }
+
+        if (agendarProxCita) {
+            console.log('Se agenda proxima cita')
+            AddProxCita(cita)
+        }
     }
-    const UpdateCita = (cita) => {
+    const UpdateCita = (cita, agendarProxCita = false) => {
         const id = citaToUpdate.id
         console.log('updateCita', id, cita)
         updateCita(id, cita)
-        setCitas([...citas.filter((c) => c.id !== id), { ...cita, id: citaToUpdate.id }])
+        const citasUpdated = [...citas.filter((c) => c.id !== id), { ...cita, id: citaToUpdate.id }]
+        setCitas(citasUpdated)
+        SplitCitas(citasUpdated)
+        console.log('agendarProxCita', agendarProxCita);
+        if (agendarProxCita) {
+            console.log('Se agenda proxima cita')
+            AddProxCita(cita)
+        }
     }
     const DeleteCita = () => {
         const id = citaToDelete.id
@@ -65,12 +83,14 @@ const PetsTable = ({ petId, tipocita }) => {
 
     const AddProxCita = (citaActual) => {
         const citaProx = {
+            pet: petId,
+            tipo: citaActual.tipo,
             estado: 2,
-            fechaProxima: citaActual.fechaProxima
+            fecha: citaActual.fechaProxima
         }
         addCita(citaProx)
         setCitas([...citas, citaProx])
-        SplitCitas([...citas, citaProx])
+        setCitasPendientes([...citasPendientes, citaProx])
 
     }
 
@@ -196,8 +216,8 @@ const PetsTable = ({ petId, tipocita }) => {
                 tipocita={tipocita} cita={citaToUpdate}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                savefunction={(cita) => {
-                    modalType === 'add' ? AddCita(cita) : UpdateCita(cita)
+                savefunction={(cita, agendarProxCita) => {
+                    modalType === 'add' ? AddCita(cita, agendarProxCita) : UpdateCita(cita, agendarProxCita)
                 }}
             />
             <ConfirmationModal show={confirmationModalShow}

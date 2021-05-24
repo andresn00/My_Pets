@@ -47,8 +47,8 @@ const FormCita = (props) => {
             producto,
             dosis
         }
-        console.log('form cita', cita);
-        props.savefunction(cita)
+        console.log('form cita', cita, agendarProxCita);
+        props.savefunction(cita, agendarProxCita)
         props.onHide()
     }
 
@@ -127,7 +127,7 @@ const FormCita = (props) => {
                                 <Form.Text>
                                     <Form.Check type='checkbox' label='Agendar próxima cita'
                                         disabled={fechaProxima && estado === 1 ? false : true}
-                                        value={agendarProxCita} onChange={(e) => setAgendarProxCita(e.target.value)}
+                                        value={agendarProxCita} onChange={(e) => setAgendarProxCita(e.target.checked)}
                                     />
                                 </Form.Text>
                             </Form.Group>
