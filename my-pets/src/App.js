@@ -16,6 +16,7 @@ import ProtectedVetRoute from './Components/ProtectedVetRoute'
 import Users from './Components/Users';
 import Pets from './Components/Pets';
 import Carnets from './Components/Carnets';
+import Home from './Components/Home';
 
 function App() {
   const { user, userLoaded } = useContext(UserContext)
@@ -27,33 +28,39 @@ function App() {
           <NavBar />
           <div className='mt-5 pt-1'>
             <Switch>
+              <Route exact path='/home'>
+                {user ?
+                  (user.isVet ? <Redirect to='/users' /> :
+                    <Redirect to={`/carnets/${user.uid}`} />) :
+                  <Home />}
+              </Route>
+
+
               <Route exact path='/signIn'>
                 {user ?
-                  <Redirect to='/home' /> : <SignIn />}
+                  (user.isVet ? <Redirect to='/users' /> :
+                    <Redirect to={`/carnets/${user.uid}`} />) :
+                  <SignIn />}
               </Route>
               <Route path='/signUp'>
-                {!user ?
-                  <SignUp /> : <Redirect to='/home' />}
+                {user ?
+                  (user.isVet ? <Redirect to='/users' /> :
+                    <Redirect to={`/carnets/${user.uid}`} />) :
+                  <SignUp />}
               </Route>
 
               <ProtectedRoute redirectTo='/home' path='/profile'>
                 <ProfilePage />
               </ProtectedRoute>
-              <ProtectedVetRoute path='/users' redirectTo='/'>
+              <ProtectedVetRoute path='/users' redirectTo='/home'>
                 <Users />
               </ProtectedVetRoute>
-              {/* <Route path='/usuarios' component={Users} /> */}
-              <Route path='/carnets/:id' component={Carnets} />
+
+              <ProtectedRoute redirectTo='/home' path='/carnets/:id'>
+                <Carnets />
+              </ProtectedRoute>
+              {/* <Route path='/carnets/:id' component={Carnets} /> */}
               <Route path='/pets/:id' component={Pets} />
-
-              {/* {user ?
-                <Carnets /> : <Redirect to='/home' />}
-            </Route>
-            <Route path='/pets/:id' >
-            {user ?
-                <Pets /> : <Redirect to='/home' />}
-            </Route> */}
-
 
             </Switch>
           </div>

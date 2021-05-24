@@ -25,7 +25,7 @@ const SignUp = () => {
                 const vetCreated = await createVetDoc(email, name)
                 updateDocument('users', userCreated.uid, {vet: vetCreated.id})
             }
-            history.push('/')
+            // history.push('/home')
         }
         catch (error) {
             setError('Error Signin up with email and password')

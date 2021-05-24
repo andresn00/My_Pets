@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { getUserPets } from '../pets'
 
 import { FaPlus, FaEye } from 'react-icons/fa'
@@ -9,7 +9,8 @@ import {
 } from 'react-bootstrap'
 
 const Carnets = (props) => {
-    const userId = props.match.params.id
+    console.log('props', props);
+    const { id: userId = ''} = useParams()
     const [pets, setPets] = useState([])
     useEffect(() => {
         const getPets = async () => {
@@ -18,7 +19,6 @@ const Carnets = (props) => {
             console.log('pets', pets)
         }
         getPets()
-
     }, [])
 
     const history = useHistory()

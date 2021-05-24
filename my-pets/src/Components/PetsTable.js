@@ -30,9 +30,10 @@ const PetsTable = ({ petId, tipocita }) => {
         const updateCitasPendientes = () => {
             //Agrega el numero de citas pendientes a la mascota
             updatePetCitasPendientes(petId, citasPendientes.length)
+            console.log('updatePendientes', citasPendientes.length)
         }
         updateCitasPendientes()
-    }, [citasPendientes])
+    }, [citasPendientes?.length])
 
     const SplitCitas = (citas) => {
         const pendientes = []
@@ -67,6 +68,7 @@ const PetsTable = ({ petId, tipocita }) => {
             console.log('Se agenda proxima cita')
             AddProxCita(cita)
         }
+
     }
     const UpdateCita = (cita, agendarProxCita = false) => {
         const id = citaToUpdate.id
@@ -80,6 +82,7 @@ const PetsTable = ({ petId, tipocita }) => {
             console.log('Se agenda proxima cita')
             AddProxCita(cita)
         }
+
     }
     const DeleteCita = () => {
         const id = citaToDelete.id
@@ -124,7 +127,7 @@ const PetsTable = ({ petId, tipocita }) => {
 
 
             <Alert variant='warning' className='mb-4'>
-                <h2>Citas Pendientes</h2>
+                <h3>Citas Pendientes</h3>
             </Alert>
             <Table bordered hover striped responsive size='sm'>
                 <thead>
@@ -172,7 +175,7 @@ const PetsTable = ({ petId, tipocita }) => {
             </Table>
 
             <Alert variant='success' className='mt-5'>
-                <h2>Citas Completadas</h2>
+                <h3>Citas Completadas</h3>
             </Alert>
             <Table bordered hover striped responsive size='sm'>
                 <thead>

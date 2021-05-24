@@ -3,7 +3,7 @@ import {UserContext}from '../Providers/UserProvider';
 import {Route,Redirect} from 'react-router-dom';
 
 export default function ProtectedRoute(props){
-   
+    console.log('props2', props);
     const authValue=useContext(UserContext)
     if (authValue.userLoaded){
         if(!authValue.user){
