@@ -8,12 +8,15 @@ import { getEstadoText } from '../utils'
 
 const FormPet = (props) => {
     const [nombre, setNombre] = useState('')
-    const [fechaNacimiento, setFechaNacimiento] = useState('')
+    const [fechaNacimiento, setFechaNacimiento] = useState()
     const [especie, setEspecie] = useState('')
     const [raza, setRaza] = useState('')
     const [sexo, setSexo] = useState('')
     const [color, setColor] = useState('')
 
+    useEffect(() => {
+        clearFields()
+    }, [])
 
 
     const Save = () => {
@@ -32,7 +35,7 @@ const FormPet = (props) => {
     }
     const clearFields = () => {
         setNombre('')
-        setFechaNacimiento('')
+        setFechaNacimiento(toIsoString().substr(0, 16))
         setEspecie('')
         setRaza('')
         setSexo('')
