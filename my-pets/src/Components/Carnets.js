@@ -8,10 +8,15 @@ import {
     ListGroup, ListGroupItem, Badge
 } from 'react-bootstrap'
 
+import FormPet from './FormPet'
+
 const Carnets = (props) => {
     console.log('props', props);
     const { id: userId = ''} = useParams()
     const [pets, setPets] = useState([])
+
+    const [modalShow, setModalShow] = useState(false)
+
     useEffect(() => {
         const getPets = async () => {
             const pets = await getUserPets(userId)
@@ -27,8 +32,11 @@ const Carnets = (props) => {
         history.push(`/pets/${id}`)
     }
 
-    const AddPet = () => {
-
+    const AddPet = (p) => {
+        p.propietario = userId
+        console.log('finalPet', p);
+        addPet(p)
+        setPets([...pets, p])
     }
 
     const calcAge = (bd = new Date()) => {
@@ -49,7 +57,7 @@ const Carnets = (props) => {
             <Container className='mx-0 mt-4'>
                 <Row className='mb-4'>
                     <Col>
-                        <Button><FaPlus /> Nuevo</Button>
+                        <Button onClick={() => setModalShow(true)}><FaPlus /> Nuevo</Button>
                     </Col>
 
                 </Row>
@@ -63,8 +71,8 @@ const Carnets = (props) => {
                             </Card.Body>
                         </Card>
                     </Col> */}
-                    {pets.map((pet) => (
-                        <Col xs={3} key={pet.id} className='mx-0 mb-3'>
+                    {pets.map((pet, index) => (
+                        <Col xs={3} key={index} className='mx-0 mb-3'>
                             <Card style={{ width: '16rem' }} onClick={() => handleCarnetClick(pet.id)}>
                                 <Card.Img variant="top" src="https://www.ecestaticos.com/image/clipping/79776773aab795837282c7d4947abaf7/por-que-nos-parece-que-los-perros-sonrien-una-historia-de-30-000-anos.jpg" />
                                 <Card.Body className='pt-3 pb-1'>
@@ -100,6 +108,11 @@ const Carnets = (props) => {
                     ))}
                 </Row>
             </Container>
+
+            <FormPet show={modalShow}
+                onHide={() => setModalShow(false)}
+                savefunction={(p) => AddPet(p)}
+            />
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { convertToTimestamp } from '../firestore'
 
-import { Modal, Button, Form, Col, InputGroup, ToggleButtonGroup, ToggleButton, FormGroup } from 'react-bootstrap'
+import { Modal, Button, Form, Col, InputGroup, FormGroup } from 'react-bootstrap'
 import { FaEraser, FaCircle } from "react-icons/fa";
 
 import { getEstadoText } from '../utils'

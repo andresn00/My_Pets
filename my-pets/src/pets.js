@@ -12,17 +12,8 @@ export const getPetById = async id => {
     return await getDocById("pets", id)
 }
 
-export const addPet = async (uid, name, fechaNacimiento, especie, raza, sexo, color) => {
-    const pet = {
-        nombre: name,
-        fechaNacimiento,
-        especie,
-        raza,
-        sexo,
-        color,
-        propietario: uid
-    }
-    return await addDocument("pets", pet)
+export const addPet = async (data) => {
+    return await addDocument("pets", data)
 }
 
 export const updatePet = async (id, data) => {
