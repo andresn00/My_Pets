@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { getUserPets } from '../pets'
+import { getUserPets, addPet } from '../pets'
 
 import { FaPlus, FaEye } from 'react-icons/fa'
 import {
@@ -25,6 +25,10 @@ const Carnets = (props) => {
 
     const handleCarnetClick = (id) => {
         history.push(`/pets/${id}`)
+    }
+
+    const AddPet = () => {
+
     }
 
     const calcAge = (bd = new Date()) => {

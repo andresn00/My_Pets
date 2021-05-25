@@ -9,8 +9,9 @@ const ProfilePage = () => {
     const { nombre, email } = user || {}
     return (
         <div>
-            <h1>{nombre}</h1>
-            <h3>{email}</h3>
+            <h1>{user.nombre}</h1>
+            <h3>{user.email}</h3>
+            <h4>id: {user.uid}</h4>
             <Button onClick={() => auth.signOut()}>
                 Cerrar Sesión
             </Button>
