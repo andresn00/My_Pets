@@ -56,12 +56,33 @@ const Users = () => {
                     </small>
                 </h2><hr></hr>
                 <Container className='mx-0'>
+                    <Row className='mb-2'>
+                        <Col>
+                            <Breadcrumb style={{ width: 'fit-content' }}>
+                                <Breadcrumb.Item active={!usersAreVets ? true : false}
+                                    onClick={() => setUsersAreVets(false)}>
+                                    Clientes
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item active={usersAreVets ? true : false}
+                                    onClick={() => setUsersAreVets(true)}>
+                                    Doctores
+                                 </Breadcrumb.Item>
+                            </Breadcrumb>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <h5>
+                                {`Agregar ${usersAreVets ? 'doctor' : 'cliente'} a la veterinaria`}
+                            </h5>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col xs={12} md={8}>
                             <InputGroup>
                                 <FormControl value={idUserToAdd}
                                     onChange={(e) => setIdUserToAdd(e.target.value)}
-                                    placeholder={`Agregar ${usersAreVets ? 'doctor' : 'cliente'} a la veterinaria`} />
+                                    placeholder={`Ingrese el id del ${usersAreVets ? 'doctor' : 'cliente'}`} />
                                 <InputGroup.Append>
                                     <Button variant='success' onClick={addUserToVet}>
                                         Agregar
@@ -76,16 +97,6 @@ const Users = () => {
                 </Container>
             </div>
             <div className='m-4 p-2'>
-                <Breadcrumb style={{ width: 'fit-content' }}>
-                    <Breadcrumb.Item active={!usersAreVets ? true : false}
-                        onClick={() => setUsersAreVets(false)}>
-                        Clientes
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item active={usersAreVets ? true : false}
-                        onClick={() => setUsersAreVets(true)}>
-                        Doctores
-                    </Breadcrumb.Item>
-                </Breadcrumb>
                 <Table bordered hover striped responsive size='sm'>
                     <thead>
                         <tr>
