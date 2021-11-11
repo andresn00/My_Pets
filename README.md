@@ -1,2 +1,2 @@
-# IHC_Proyecto
-Proyecto MyPets para Interaccion Humano-Computador
+# My Pets
+Aplicación web para veterinarias y dueños de mascotas
